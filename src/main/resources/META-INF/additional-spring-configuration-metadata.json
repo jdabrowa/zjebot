@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "app.gateways.telegram.token",
+      "type": "java.lang.String",
+      "description": "Description."
+    }
+  ]
+}
