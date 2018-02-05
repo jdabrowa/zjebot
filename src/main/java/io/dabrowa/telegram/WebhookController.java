@@ -21,7 +21,7 @@ public class WebhookController {
     private final String token;
 
     @Autowired
-    public WebhookController(@org.springframework.beans.factory.annotation.Value("app.gateways.telegram.token") String token) {
+    public WebhookController(@org.springframework.beans.factory.annotation.Value("${app.gateways.telegram.token}") String token) {
         log.info("Initializing controller with token: {}", token);
         this.token = token;
     }
@@ -29,10 +29,12 @@ public class WebhookController {
     @ResponseBody
     @RequestMapping(path = "/webhook/{token}", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Response> executeCallback(@PathVariable("token") String token, @RequestBody Map<String, Object> payload) throws JsonProcessingException {
+        log.info("Got request with token: {}", token);
         if(token.equals(this.token)) {
             handle(payload);
             return ResponseEntity.ok(new Response("success"));
         }
+        log.warn("Token comparison failed: '{}' vs '{}'", token, this.token);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Invalid token"));
     }
 
