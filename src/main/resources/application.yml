@@ -1,7 +1,12 @@
-app.gateways.telegram.token: "dupa"
+app.gateways.telegram.token: "${telegramToken:}"
 server:
   port: 8443
   ssl:
     key-store: keystore.p12
     key-store-type: PKCS12
-    key-alias: tomcat
+    key-alias: "dabrowa.io"
+    enabled: true
+    key-store-password: "${keystorePassword:}"
+
+
+

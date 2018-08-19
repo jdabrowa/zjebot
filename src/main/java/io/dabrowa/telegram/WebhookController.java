@@ -2,6 +2,7 @@ package io.dabrowa.telegram;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.dabrowa.telegram.protocol.UpdateDto;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class WebhookController {
 
     @ResponseBody
     @RequestMapping(path = "/webhook/{token}", method = RequestMethod.POST, consumes = "application/json", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Response> executeCallback(@PathVariable("token") String token, @RequestBody Map<String, Object> payload) throws JsonProcessingException {
+    public ResponseEntity<Response> executeCallback(@PathVariable("token") String token, @RequestBody UpdateDto payload) throws JsonProcessingException {
         log.info("Got request with token: {}", token);
         if(token.equals(this.token)) {
             handle(payload);
@@ -38,7 +39,7 @@ public class WebhookController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response("Invalid token"));
     }
 
-    private void handle(Object payload) throws JsonProcessingException {
+    private void handle(UpdateDto payload) throws JsonProcessingException {
         log.info("Got request: {}", new ObjectMapper().writeValueAsString(payload));
     }
 
