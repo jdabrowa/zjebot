@@ -32,6 +32,7 @@ public class SpotifyOAuthServer implements OAuthServer {
     public OAuthTokens requestTokens(String authorizationCode) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", new BasicAuthentication(applicationCredentials.getClientId(), applicationCredentials.getClientSecret()).headerValue());
 
         MultiValueMap<String, String> requestContent = new LinkedMultiValueMap<>();
         requestContent.set("grant_type", "authorization_code");
