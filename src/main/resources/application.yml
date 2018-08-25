@@ -1,4 +1,14 @@
 app.gateways.telegram.token: "${telegramToken:}"
+
+spotify:
+  application:
+    clientId: "f6718b43e6a247da83272a2c71c7e7c2"
+    clientSecret: "${spotifySecret:}"
+  authorizeUrl: "https://accounts.spotify.com/authorize"
+  authorizationScope: "playlist-modify-public"
+  account:
+    userName: "ml4ybx5d9yt3lgtvruyfao6e3"
+
 server:
   port: 8443
   ssl:

@@ -42,15 +42,15 @@ public class ApplicationConfiguration {
 
     @Bean
     public ApplicationCredentials applicationCredentials(
-            @Value("spotify.application.clientId") String clientId,
-            @Value("spotify.application.clientSecret") String clientSecret
+            @Value("${spotify.application.clientId}") String clientId,
+            @Value("${spotify.application.clientSecret}") String clientSecret
     ) {
         return new ApplicationCredentials(clientId, clientSecret);
     }
 
     @Bean
     public OAuthServer oAuthServer(RestTemplate restTemplate,
-                                   @Value("spotify.account.userName") String spotifyUserName,
+                                   @Value("${spotify.account.userName}") String spotifyUserName,
                                    ApplicationCredentials applicationCredentials) {
         return new SpotifyOAuthServer(restTemplate, new SpotifyUrls(spotifyUserName), AuthorizationController.REDIRECT_URL, applicationCredentials);
     }
