@@ -41,14 +41,14 @@ public class SpotifyOAuthServer implements OAuthServer {
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestContent, headers);
 
-        Map<String, String> response = restTemplate.postForEntity(spotifyUrls.accessTokenUrl(), requestEntity, Map.class).getBody();
+        Map<String, Object> response = restTemplate.postForEntity(spotifyUrls.accessTokenUrl(), requestEntity, Map.class).getBody();
 
         return OAuthTokens.builder()
-                .token(response.get("access_token"))
-                .refreshToken(response.get("refresh_token"))
-                .expiresAt(Instant.now().plus(Long.valueOf(response.get("expires_in")), ChronoUnit.SECONDS))
-                .scope(response.get("scope"))
-                .tokenType(response.get("token_type"))
+                .token(response.get("access_token").toString())
+                .refreshToken(response.get("refresh_token").toString())
+                .expiresAt(Instant.now().plus(((Number)response.get("expires_in")).intValue(), ChronoUnit.SECONDS))
+                .scope(response.get("scope").toString())
+                .tokenType(response.get("token_type").toString())
                 .build();
     }
 
@@ -65,14 +65,14 @@ public class SpotifyOAuthServer implements OAuthServer {
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestContent, headers);
 
-        Map<String, String> response = restTemplate.postForEntity(spotifyUrls.refreshTokenUrl(), requestEntity, Map.class).getBody();
+        Map<String, Object> response = restTemplate.postForEntity(spotifyUrls.refreshTokenUrl(), requestEntity, Map.class).getBody();
 
         return OAuthTokens.builder()
-                .token(response.get("access_token"))
+                .token(response.get("access_token").toString())
                 .refreshToken(refreshToken)
-                .expiresAt(Instant.now().plus(Long.valueOf(response.get("expires_in")), ChronoUnit.SECONDS))
-                .scope(response.get("scope"))
-                .tokenType(response.get("token_type"))
+                .expiresAt(Instant.now().plus(((Number)response.get("expires_in")).intValue(), ChronoUnit.SECONDS))
+                .scope(response.get("scope").toString())
+                .tokenType(response.get("token_type").toString())
                 .build();
     }
 }
