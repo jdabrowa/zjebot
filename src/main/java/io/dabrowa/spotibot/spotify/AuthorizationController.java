@@ -15,8 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 @RequestMapping("/api/v1/spotify")
 public class AuthorizationController {
 
-    // TODO: Parse from HttpRequest
-    private static final String REDIRECT_URL = "https://dabrowa.io/api/v1/spotify/accept-code";
+    public static final String REDIRECT_URL = "https://dabrowa.io/api/v1/spotify/accept-code";
 
     private final String clientId;
     private final String spotifyAuthorizeUrl;

@@ -20,7 +20,7 @@ public class WebhookController {
     private final String token;
 
     @Autowired
-    public WebhookController(@org.springframework.beans.factory.annotation.Value("${app.gateways.spotibot.token}") String token) {
+    public WebhookController(@org.springframework.beans.factory.annotation.Value("${app.gateways.telegram.token}") String token) {
         log.info("Initializing controller with token: {}", token);
         this.token = token;
     }
