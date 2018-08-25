@@ -1,4 +1,4 @@
-package io.dabrowa.telegram;
+package io.dabrowa.spotibot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

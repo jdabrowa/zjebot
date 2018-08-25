@@ -1,4 +1,4 @@
-package io.dabrowa.telegram.protocol;
+package io.dabrowa.spotibot.telegram.protocol;
 
 import lombok.Data;
 

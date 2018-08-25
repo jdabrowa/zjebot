@@ -11,7 +11,7 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
+apply plugin: 'groovy'
 apply plugin: 'org.springframework.boot'
 
 group = 'io.dabrowa'
@@ -22,7 +22,6 @@ repositories {
 	mavenCentral()
 }
 
-
 dependencies {
 
 	compile('org.springframework.boot:spring-boot-starter-web')
@@ -30,6 +29,9 @@ dependencies {
 	compile('com.fasterxml.jackson.module:jackson-module-afterburner:2.7.1')
 
     compileOnly "org.projectlombok:lombok:1.16.16"
+
+	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+	testCompile "org.codehaus.groovy:groovy-all:2.4.11"
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
