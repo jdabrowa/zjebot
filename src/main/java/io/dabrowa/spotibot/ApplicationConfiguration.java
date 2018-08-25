@@ -11,11 +11,17 @@ import io.dabrowa.spotibot.spotify.SpotifyUrls;
 import io.dabrowa.spotibot.spotify.oauth.OAuthServer;
 import io.dabrowa.spotibot.spotify.oauth.OAuthToken;
 import io.dabrowa.spotibot.spotify.oauth.SpotifyOAuthServer;
+import io.dabrowa.spotibot.util.HttpLogger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import static java.util.Collections.singletonList;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -37,7 +43,10 @@ public class ApplicationConfiguration {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        ClientHttpRequestFactory factory = new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory());
+        RestTemplate restTemplate = new RestTemplate(factory);
+        restTemplate.setInterceptors(singletonList(new HttpLogger()));
+        return restTemplate;
     }
 
     @Bean
